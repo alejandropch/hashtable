@@ -25,7 +25,7 @@ unsigned int hash(char *key)
 {
   unsigned int index = 0;
   for( 
-    int i=0; 
+    size_t i = 0; 
     i < strlen(key); 
     index = (key[i]+ index) * key[i], i++
     );
@@ -37,7 +37,7 @@ void reallocate_keys(struct metadata *t)
   t->size =t->size * 2;
   struct hashtable **new_ht = malloc( sizeof(struct hashtable *) * t->size);
   
-  for(int i = 0; i < (t->size/2); i++)
+  for(size_t i = 0; i < (t->size/2); i++)
   {
     if(t->ht[i] == NULL)continue;
 
@@ -102,8 +102,8 @@ void* get(struct metadata *t, char *key )
 
 void print_ht(struct metadata *t)
 {
-  for(int i = 0; i < t->size; i++){
-    printf("%d\t %p\t", i, t->ht[i]);
+  for(size_t i = 0; i < t->size; i++){
+    printf("%lu\t %p\t", i, (void *)t->ht[i]);
 
     if (t->ht[i] == NULL) puts("-");
     else printf("%s\n",t->ht[i]->value);
